@@ -4,7 +4,21 @@
 
 Bienvenido a **AWS Cloud Odyssey**, una serie técnica en español dedicada al diseño de arquitecturas reales sobre Amazon Web Services.
 
-Aquí no nos limitamos a explicar qué hace cada servicio. El objetivo es pensar como un **Solutions Architect**: analizar requisitos, tomar decisiones, diseñar para seguridad, disponibilidad, escalabilidad, observabilidad y costo, y llevar cada arquitectura desde el diagrama hasta una base reproducible con Infrastructure as Code.
+Aquí no quiero limitarme a explicar qué hace cada servicio ni a coleccionar diagramas con muchos iconos. El objetivo es documentar **cómo pienso una arquitectura cuando la llevo a un escenario de producción**: qué requisito intento resolver, qué riesgo estoy aceptando, qué alternativa descartaría, qué impacto puede tener en operación y costos, y cómo convertir la decisión en infraestructura reproducible.
+
+## 🧠 Perspectiva desde la experiencia
+
+Esta serie nace de una idea sencilla: en proyectos reales, la arquitectura rara vez consiste en elegir el servicio “correcto” de una lista. Normalmente hay restricciones de red, seguridad, presupuesto, operación, equipos existentes y decisiones heredadas que obligan a evaluar **trade-offs**.
+
+Por eso cada capítulo separará tres cosas:
+
+- **lo que recomienda el patrón de referencia**, para entender una base sólida;
+- **lo que yo decidiría como arquitecto**, explicando el porqué y las alternativas;
+- **lo que validaría antes de producción**, porque un diagrama por sí solo no demuestra que una solución sea operable.
+
+Cuando una decisión dependa del contexto, lo diré explícitamente. Cuando una opción incremente costo a cambio de resiliencia o seguridad, también. Y cuando el código sea un laboratorio o baseline y no una solución lista para cualquier empresa, quedará indicado.
+
+La intención de **AWS Cloud Odyssey** es que cada arquitectura pueda defenderse en una conversación técnica: no solo mostrar *qué servicios aparecen*, sino explicar **por qué están ahí, qué problema resuelven y qué cambiaría bajo otras condiciones**.
 
 ## 🧭 La Odyssey
 
@@ -27,8 +41,8 @@ Aquí no nos limitamos a explicar qué hace cada servicio. El objetivo es pensar
 
 ### [Capítulo 01 — El Perímetro Global](./capitulos/01-el-perimetro-global/README.md)
 
-Diseñaremos la entrada global de una aplicación AWS utilizando **Amazon Route 53, Amazon CloudFront, AWS WAF, Application Load Balancer y una capa de aplicación privada**.
+Diseñaremos la entrada global de una aplicación AWS utilizando **Amazon Route 53, Amazon CloudFront, AWS WAF, Application Load Balancer y una capa de aplicación privada**. Además del patrón, el capítulo documenta decisiones, amenazas, costos, observabilidad, errores que evitaría y un baseline desplegable con Terraform.
 
 ---
 
-**AWS Cloud Odyssey** · Arquitectura · Seguridad · Resiliencia · Escalabilidad · FinOps · Infrastructure as Code
+**Juan Gutierrez** · AWS Cloud Odyssey · Arquitectura · Seguridad · Resiliencia · Escalabilidad · FinOps · Infrastructure as Code
