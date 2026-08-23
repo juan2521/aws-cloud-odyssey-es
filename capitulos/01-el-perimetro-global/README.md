@@ -34,7 +34,7 @@ Queremos una plataforma que cumpla estas condiciones:
 
 ---
 
-## 🗺️ Arquitectura objetivo
+## 🗺️ Arquitectura
 
 <p align="center">
   <img src="./arquitectura/architecture_exact_lossless.png" alt="AWS Cloud Odyssey - Capítulo 01 - El Perímetro Global - Arquitectura AWS" width="1200">
