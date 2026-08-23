@@ -4,7 +4,7 @@
 
 Bienvenido a **AWS Cloud Odyssey**, una serie técnica en español dedicada al diseño de arquitecturas reales sobre Amazon Web Services.
 
-Aquí no quiero limitarme a explicar qué hace cada servicio ni a coleccionar diagramas con muchos iconos. El objetivo es documentar **cómo pienso una arquitectura cuando la llevo a un escenario de producción**: qué requisito intento resolver, qué riesgo estoy aceptando, qué alternativa descartaría, qué impacto puede tener en operación y costos, y cómo convertir la decisión en infraestructura reproducible.
+Aquí no quiero limitarme solamente a explicar qué hace cada servicio. El objetivo es documentar **cómo pienso una arquitectura cuando la llevo a un escenario de producción**: qué requisito intento resolver, qué riesgo estoy aceptando, qué alternativa descartaría, qué impacto puede tener en operación y costos, y cómo convertir la decisión en infraestructura reproducible.
 
 ## 🧠 Perspectiva desde la experiencia
 
