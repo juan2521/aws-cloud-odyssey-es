@@ -436,7 +436,7 @@ La pregunta correcta no es solo “¿cuánto cuesta CloudFront?”, sino:
 
 ---
 
-# 🚨 Errores que evitaría
+# 🚨 Errores a evitar
 
 1. **CloudFront delante de un ALB público sin restringir el origen.** Puede permitir bypass del edge.
 2. **Activar WAF en BLOCK sin observar tráfico.** Puede bloquear usuarios reales.
