@@ -37,7 +37,7 @@ Queremos una plataforma que cumpla estas condiciones:
 ## 🗺️ Arquitectura objetivo
 
 <p align="center">
-  <img src="./arquitectura/arquitectura-aws.svg" alt="AWS Cloud Odyssey - Capítulo 01 - El Perímetro Global - Arquitectura AWS" width="1200">
+  <img src="./arquitectura/arquitectura-aws-final.webp" alt="AWS Cloud Odyssey - Capítulo 01 - El Perímetro Global - Arquitectura AWS" width="1200">
 </p>
 
 > **Arquitectura visual del capítulo.** Route 53 y CloudFront proporcionan la entrada global; AWS WAF protege la capa HTTP(S); CloudFront VPC Origin permite alcanzar un ALB interno; la aplicación se distribuye en múltiples AZ y Amazon RDS Multi-AZ protege la capa de datos.
