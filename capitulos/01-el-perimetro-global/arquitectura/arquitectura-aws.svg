@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+<title id="title">AWS Cloud Odyssey - El Perímetro Global</title>
+<desc id="desc">Arquitectura AWS con Route 53, CloudFront, AWS WAF, CloudFront VPC Origin, ALB interno, aplicación Multi-AZ, RDS Multi-AZ, CloudWatch, Shield y ACM.</desc>
+<defs>
+  <style>
+    .t{font-family:Arial,Helvetica,sans-serif;fill:#182230}.h{font-size:22px;font-weight:700}.s{font-size:14px}.xs{font-size:12px}.b{font-weight:700}.line{stroke:#344054;stroke-width:2;fill:none}.dash{stroke:#667085;stroke-width:1.8;stroke-dasharray:7 6;fill:none}.box{fill:#fff;stroke:#D0D5DD;stroke-width:1.5}.cloud{fill:#FCFCFD;stroke:#667085;stroke-width:2}.vpc{fill:#F8FFF8;stroke:#2E7D32;stroke-width:2}.az{fill:#FAFAFF;stroke:#7F56D9;stroke-width:1.7;stroke-dasharray:7 5}.private{fill:#EFF8FF;stroke:#2E90FA}.service{rx:12;ry:12;stroke-width:1.5}.label{font-size:13px;font-weight:700;text-anchor:middle}.small{font-size:11px;text-anchor:middle}.pill{rx:9;ry:9}
+  </style>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#344054"/></marker>
+</defs>
+<rect width="1400" height="760" fill="#FFFFFF"/>
+<text x="54" y="50" class="t h">AWS Cloud Odyssey · Capítulo 01 — El Perímetro Global</text>
+<text x="54" y="76" class="t s">Arquitectura de referencia para una entrada global, segura, privada y altamente disponible.</text>
+
+<!-- Edge -->
+<g>
+  <rect x="52" y="145" width="145" height="82" class="service" fill="#F4EBFF" stroke="#7F56D9"/>
+  <circle cx="124" cy="172" r="19" fill="#7F56D9"/><text x="124" y="178" fill="#fff" font-family="Arial" font-size="14" font-weight="700" text-anchor="middle">53</text>
+  <text x="124" y="204" class="t label">Amazon Route 53</text>
+
+  <rect x="235" y="145" width="155" height="82" class="service" fill="#F4EBFF" stroke="#7F56D9"/>
+  <circle cx="312" cy="172" r="19" fill="#7F56D9"/><text x="312" y="178" fill="#fff" font-family="Arial" font-size="15" font-weight="700" text-anchor="middle">CF</text>
+  <text x="312" y="204" class="t label">Amazon CloudFront</text>
+
+  <rect x="430" y="145" width="135" height="82" class="service" fill="#FEF3F2" stroke="#D92D20"/>
+  <circle cx="498" cy="172" r="19" fill="#D92D20"/><text x="498" y="178" fill="#fff" font-family="Arial" font-size="13" font-weight="700" text-anchor="middle">WAF</text>
+  <text x="498" y="204" class="t label">AWS WAF</text>
+
+  <text x="56" y="120" class="t s b">Internet / Edge</text>
+  <path d="M197 186 H235" class="line" marker-end="url(#arrow)"/>
+  <path d="M390 186 H430" class="line" marker-end="url(#arrow)"/>
+</g>
+
+<!-- AWS Cloud -->
+<rect x="600" y="105" width="742" height="565" rx="18" class="cloud"/>
+<rect x="620" y="121" width="104" height="30" class="pill" fill="#182230"/><text x="672" y="142" fill="#fff" font-family="Arial" font-size="14" font-weight="700" text-anchor="middle">AWS Cloud</text>
+
+<!-- VPC -->
+<rect x="630" y="168" width="540" height="456" rx="15" class="vpc"/>
+<text x="654" y="197" class="t s b" fill="#2E7D32">Amazon VPC</text>
+
+<!-- VPC Origin -->
+<rect x="674" y="220" width="172" height="68" class="service" fill="#F4EBFF" stroke="#7F56D9"/>
+<circle cx="706" cy="254" r="18" fill="#7F56D9"/><text x="706" y="260" fill="#fff" font-family="Arial" font-size="12" font-weight="700" text-anchor="middle">VPC</text>
+<text x="770" y="248" class="t s b" text-anchor="middle">CloudFront</text><text x="770" y="266" class="t xs" text-anchor="middle">VPC Origin</text>
+
+<!-- ALB -->
+<rect x="878" y="220" width="220" height="68" class="service" fill="#F4EBFF" stroke="#7F56D9"/>
+<circle cx="914" cy="254" r="18" fill="#7F56D9"/><text x="914" y="260" fill="#fff" font-family="Arial" font-size="12" font-weight="700" text-anchor="middle">ALB</text>
+<text x="998" y="248" class="t s b" text-anchor="middle">Application Load Balancer</text><text x="998" y="266" class="t xs" text-anchor="middle">interno</text>
+<path d="M565 186 H594 V254 H674" class="line" marker-end="url(#arrow)"/>
+<path d="M846 254 H878" class="line" marker-end="url(#arrow)"/>
+
+<!-- AZs -->
+<rect x="666" y="330" width="220" height="205" rx="12" class="az"/>
+<rect x="914" y="330" width="220" height="205" rx="12" class="az"/>
+<text x="776" y="356" class="t s b" text-anchor="middle" fill="#6941C6">Availability Zone A</text>
+<text x="1024" y="356" class="t s b" text-anchor="middle" fill="#6941C6">Availability Zone B</text>
+
+<rect x="692" y="382" width="168" height="96" rx="10" class="private"/>
+<rect x="940" y="382" width="168" height="96" rx="10" class="private"/>
+<rect x="707" y="396" width="44" height="44" rx="8" fill="#F79009"/><text x="729" y="423" fill="#fff" font-family="Arial" font-size="13" font-weight="700" text-anchor="middle">APP</text>
+<rect x="955" y="396" width="44" height="44" rx="8" fill="#F79009"/><text x="977" y="423" fill="#fff" font-family="Arial" font-size="13" font-weight="700" text-anchor="middle">APP</text>
+<text x="786" y="411" class="t s b" text-anchor="middle">Application Tier</text><text x="786" y="432" class="t xs" text-anchor="middle">EC2 / ECS / EKS</text><text x="786" y="454" class="t xs" text-anchor="middle">Subred privada</text>
+<text x="1034" y="411" class="t s b" text-anchor="middle">Application Tier</text><text x="1034" y="432" class="t xs" text-anchor="middle">EC2 / ECS / EKS</text><text x="1034" y="454" class="t xs" text-anchor="middle">Subred privada</text>
+
+<!-- ASG -->
+<rect x="822" y="493" width="156" height="58" rx="10" fill="#FFF7ED" stroke="#F79009" stroke-width="1.5"/>
+<text x="900" y="518" class="t s b" text-anchor="middle">Auto Scaling</text><text x="900" y="538" class="t xs" text-anchor="middle">capacidad horizontal</text>
+
+<!-- Traffic split -->
+<path d="M998 288 V309 H776 V382" class="line" marker-end="url(#arrow)"/>
+<path d="M998 309 H1024 V382" class="line" marker-end="url(#arrow)"/>
+
+<!-- RDS -->
+<rect x="783" y="565" width="234" height="66" class="service" fill="#EEF4FF" stroke="#3538CD"/>
+<circle cx="820" cy="598" r="19" fill="#3538CD"/><text x="820" y="604" fill="#fff" font-family="Arial" font-size="12" font-weight="700" text-anchor="middle">RDS</text>
+<text x="919" y="592" class="t s b" text-anchor="middle">Amazon RDS Multi-AZ</text><text x="919" y="612" class="t xs" text-anchor="middle">capa de datos privada</text>
+<path d="M776 478 V548 H860 V565" class="line" marker-end="url(#arrow)"/>
+<path d="M1024 478 V548 H940 V565" class="line" marker-end="url(#arrow)"/>
+
+<!-- Security / Observability rail -->
+<text x="1205" y="196" class="t s b">Seguridad y observabilidad</text>
+<rect x="1200" y="220" width="112" height="76" class="service" fill="#FDF2FA" stroke="#C11574"/><circle cx="1225" cy="250" r="16" fill="#C11574"/><text x="1225" y="255" fill="#fff" font-family="Arial" font-size="11" font-weight="700" text-anchor="middle">CW</text><text x="1262" y="247" class="t xs b" text-anchor="middle">Amazon</text><text x="1262" y="264" class="t xs b" text-anchor="middle">CloudWatch</text><text x="1256" y="282" class="t xs" text-anchor="middle">logs · métricas</text>
+<rect x="1200" y="325" width="112" height="70" class="service" fill="#FEF3F2" stroke="#D92D20"/><circle cx="1225" cy="355" r="16" fill="#D92D20"/><text x="1225" y="360" fill="#fff" font-family="Arial" font-size="10" font-weight="700" text-anchor="middle">SH</text><text x="1265" y="351" class="t xs b" text-anchor="middle">AWS Shield</text><text x="1265" y="371" class="t xs" text-anchor="middle">Standard</text>
+<rect x="1200" y="425" width="112" height="70" class="service" fill="#FEF3F2" stroke="#D92D20"/><circle cx="1225" cy="455" r="16" fill="#D92D20"/><text x="1225" y="460" fill="#fff" font-family="Arial" font-size="10" font-weight="700" text-anchor="middle">ACM</text><text x="1265" y="451" class="t xs b" text-anchor="middle">AWS ACM</text><text x="1265" y="471" class="t xs" text-anchor="middle">TLS / SSL</text>
+<path d="M1170 254 H1200" class="dash" marker-end="url(#arrow)"/>
+<path d="M1170 359 H1200" class="dash" marker-end="url(#arrow)"/>
+<path d="M1170 459 H1200" class="dash" marker-end="url(#arrow)"/>
+
+<!-- User -->
+<g transform="translate(58,278)"><circle cx="31" cy="22" r="12" fill="none" stroke="#344054" stroke-width="2"/><circle cx="65" cy="22" r="12" fill="none" stroke="#344054" stroke-width="2"/><path d="M10 64c3-21 15-31 32-31s29 10 32 31" fill="none" stroke="#344054" stroke-width="2"/><text x="42" y="88" class="t s b" text-anchor="middle">Usuarios globales</text></g>
+<path d="M100 278 V240 H124 V227" class="line" marker-end="url(#arrow)"/>
+
+<!-- Legend -->
+<line x1="60" y1="700" x2="116" y2="700" class="line" marker-end="url(#arrow)"/><text x="128" y="705" class="t xs">Flujo principal</text>
+<line x1="260" y1="700" x2="316" y2="700" class="dash"/><text x="330" y="705" class="t xs">Métricas / controles transversales</text>
+<text x="1115" y="715" class="t xs">© 2026 Juan Gutierrez · AWS Cloud Odyssey</text>
+</svg>
