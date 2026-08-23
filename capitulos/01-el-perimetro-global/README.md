@@ -4,6 +4,12 @@
 
 ### *Diseñando una entrada segura, privada y escalable para aplicaciones en AWS*
 
+**Autor:** Juan Gutierrez  
+**Serie:** AWS Cloud Odyssey  
+**Enfoque:** Arquitecturas AWS de producción
+
+---
+
 Una aplicación puede funcionar perfectamente detrás de un Load Balancer público y aun así estar lejos de una arquitectura madura de producción.
 
 En este primer capítulo de **AWS Cloud Odyssey** construiremos el perímetro de una aplicación web pensando como arquitectos: ¿dónde termina Internet?, ¿qué componente debe ser realmente público?, ¿dónde filtramos tráfico malicioso?, ¿cómo evitamos exponer el origen?, ¿cómo mantenemos alta disponibilidad y qué observamos cuando algo falla?
@@ -77,26 +83,26 @@ flowchart TB
 ```text
 Usuario
    ↓
-Route 53
+Amazon Route 53
    ↓
-CloudFront
+Amazon CloudFront
    ↓
 AWS WAF
    ↓
 CloudFront VPC Origin
    ↓
-Internal ALB
+Internal Application Load Balancer
    ↓
-Aplicación privada Multi-AZ
+Application Tier privado Multi-AZ
    ↓
-RDS Multi-AZ
+Amazon RDS Multi-AZ
 ```
 
 La idea central del diseño es que **CloudFront sea la puerta global y el ALB forme parte del origen privado**, en lugar de publicar innecesariamente ambos componentes.
 
 ---
 
-# 🧠 Decisión 01 — ¿Por qué CloudFront?
+# 🧠 Decisión 01 — CloudFront como entrada global
 
 CloudFront no debe verse únicamente como una CDN para archivos estáticos. En esta arquitectura funciona como la **capa global de entrada**.
 
@@ -119,7 +125,7 @@ Una aplicación de producción debe asumir que recibirá tráfico no deseado.
 
 AWS WAF permite inspeccionar solicitudes HTTP(S) y aplicar controles antes de que lleguen al backend.
 
-Una política inicial podría combinar:
+Una política inicial puede combinar:
 
 ```text
 AWS Managed Rules
@@ -135,9 +141,7 @@ Reglas específicas de la aplicación
 
 ## Estrategia de despliegue
 
-No activaría decenas de reglas directamente en modo `BLOCK` sin observar primero el tráfico real.
-
-Una estrategia más segura es:
+Una estrategia segura es:
 
 ```text
 1. Asociar Web ACL
@@ -176,8 +180,6 @@ ALB interno
 
 Así CloudFront se convierte en el punto público y el origen permanece dentro de la VPC.
 
-Esto reduce la exposición y hace que la arquitectura refleje un principio importante:
-
 > **Solo debe ser público aquello que realmente necesita ser público.**
 
 ---
@@ -185,8 +187,6 @@ Esto reduce la exposición y hace que la arquitectura refleje un principio impor
 # 🏗️ Decisión 04 — Multi-AZ desde el principio
 
 Una aplicación de producción no debería depender de una única Availability Zone.
-
-El ALB distribuye solicitudes hacia targets desplegados, como mínimo, en dos AZ:
 
 ```text
                     Internal ALB
@@ -198,24 +198,22 @@ El ALB distribuye solicitudes hacia targets desplegados, como mínimo, en dos AZ
          App Instance          App Instance
 ```
 
-La capa de aplicación puede implementarse con distintas tecnologías según el caso:
+La capa de aplicación puede implementarse con:
 
 - Amazon EC2 + Auto Scaling;
 - Amazon ECS;
 - Amazon EKS;
 - otros targets compatibles.
 
-En este capítulo mantenemos el diseño agnóstico respecto al runtime. En capítulos posteriores llevaremos esta misma filosofía a EKS.
+En este capítulo mantenemos el runtime abierto. En capítulos posteriores llevaremos esta misma filosofía a Amazon EKS.
 
 ---
 
-# 🗄️ Decisión 05 — La base de datos también necesita resiliencia
+# 🗄️ Decisión 05 — Resiliencia también en datos
 
 No tendría sentido diseñar dos zonas para la aplicación y dejar la base de datos como un único punto de falla.
 
 Para una carga relacional tradicional podemos utilizar **Amazon RDS Multi-AZ**.
-
-La separación lógica queda:
 
 ```text
 Public Edge
@@ -225,13 +223,11 @@ Private Application Tier
 Private Data Tier
 ```
 
-La base de datos no necesita recibir conexiones desde Internet. Solo debe aceptar tráfico desde los componentes que realmente requieren acceso.
+La base de datos no necesita recibir conexiones desde Internet. Solo debe aceptar tráfico desde los componentes autorizados.
 
 ---
 
 # 🔐 Modelo de seguridad
-
-Pensaremos la seguridad por capas.
 
 ## Edge
 
@@ -246,9 +242,7 @@ Objetivos:
 
 ## Red
 
-El ALB es interno y la aplicación se mantiene en subredes privadas.
-
-Los Security Groups deben seguir relaciones explícitas:
+Los Security Groups deben representar relaciones explícitas:
 
 ```text
 CloudFront VPC Origin
@@ -283,27 +277,21 @@ El usuario debe navegar siempre mediante HTTPS.
 https://app.example.com
 ```
 
-El flujo de certificados debe diseñarse considerando dónde termina TLS.
-
 Para CloudFront, el certificado ACM utilizado por la distribución se administra en **us-east-1**.
 
-Podemos además definir TLS entre CloudFront y el origen cuando el diseño lo requiera.
+También podemos definir TLS entre CloudFront y el origen cuando el diseño lo requiera.
 
-Un patrón recomendable es redirigir:
+Patrón recomendado:
 
 ```text
 HTTP → HTTPS
 ```
-
-y no mantener tráfico de usuario sin cifrar.
 
 ---
 
 # 🌍 DNS con Route 53
 
 Route 53 conecta el nombre que entiende el usuario con la distribución de CloudFront.
-
-Ejemplo:
 
 ```text
 app.example.com
@@ -325,9 +313,7 @@ DNS forma parte de la arquitectura, no es un detalle que se agrega al final.
 
 La arquitectura debe crecer sin rediseñarse cada vez que aumenta la demanda.
 
-En la capa de aplicación podemos utilizar Auto Scaling o mecanismos equivalentes del runtime seleccionado.
-
-Algunas señales típicas:
+Algunas señales típicas para escalar:
 
 - CPU;
 - memoria mediante métricas adicionales;
@@ -354,7 +340,7 @@ Como mínimo debemos poder responder:
 - ¿la aplicación está escalando?
 - ¿la base de datos está saturada?
 
-## Señales clave
+## Métricas clave
 
 ### CloudFront
 
@@ -388,15 +374,11 @@ ReadLatency
 WriteLatency
 ```
 
-No basta con crear dashboards. Las métricas importantes deben traducirse en alarmas accionables.
+Las métricas importantes deben traducirse en alarmas accionables.
 
 ---
 
 # 💰 FinOps — ¿Dónde se va el dinero?
-
-Un arquitecto también debe entender el impacto económico de sus decisiones.
-
-En este diseño debemos observar especialmente:
 
 | Componente | Driver principal de costo |
 |---|---|
@@ -407,34 +389,26 @@ En este diseño debemos observar especialmente:
 | RDS | instancia, almacenamiento, I/O y backups |
 | CloudWatch | logs, métricas y retención |
 
-CloudFront puede añadir costo como servicio, pero también puede disminuir tráfico y carga sobre el origen mediante caching.
+La pregunta correcta no es solo “¿cuánto cuesta CloudFront?”, sino:
 
-La pregunta correcta no es solamente:
-
-> “¿Cuánto cuesta CloudFront?”
-
-Sino:
-
-> **“¿Cuál es el costo total de servir esta aplicación con el nivel de seguridad, rendimiento y resiliencia requerido?”**
+> **¿Cuál es el costo total de servir esta aplicación con el nivel de seguridad, rendimiento y resiliencia requerido?**
 
 ---
 
 # ⚔️ Threat Model rápido
 
-Antes de desplegar, pensemos qué estamos defendiendo.
-
 | Amenaza | Control principal |
 |---|---|
 | DDoS de infraestructura | AWS Shield Standard + edge de AWS |
 | Ataques HTTP comunes | AWS WAF |
-| Bots / abuso de endpoints | Rate-based rules / controles adicionales |
+| Bots / abuso de endpoints | Rate-based rules |
 | Acceso directo al origen | VPC Origin + ALB interno |
 | Intercepción de tráfico | TLS |
 | Movimiento lateral | segmentación + Security Groups |
 | Exposición de credenciales | Secrets Manager / IAM Roles |
 | Fallo de una AZ | despliegue Multi-AZ |
 
-**AWS Shield Standard** viene incluido automáticamente para recursos AWS compatibles. **Shield Advanced** debe evaluarse según criticidad, exposición, requisitos de soporte DDoS y perfil de riesgo; no es obligatorio para toda aplicación.
+**AWS Shield Standard** viene incluido automáticamente para recursos AWS compatibles. **Shield Advanced** debe evaluarse según criticidad, exposición, requisitos de soporte DDoS y perfil de riesgo.
 
 ---
 
@@ -442,55 +416,34 @@ Antes de desplegar, pensemos qué estamos defendiendo.
 
 ## ADR-01 — CloudFront como entrada global
 
-**Decisión:** utilizar CloudFront delante de la aplicación.
-
+**Decisión:** utilizar CloudFront delante de la aplicación.  
 **Razón:** edge global, TLS, integración con WAF y posibilidad de mantener un origen privado.
 
 ## ADR-02 — ALB interno
 
-**Decisión:** evitar un ALB Internet-facing cuando el patrón de VPC Origin sea compatible con la solución.
-
+**Decisión:** evitar un ALB Internet-facing cuando VPC Origin sea compatible con la solución.  
 **Razón:** reducir superficie pública.
 
 ## ADR-03 — WAF con rollout progresivo
 
-**Decisión:** comenzar reglas administradas sensibles en `COUNT` y promoverlas a `BLOCK` después de analizar tráfico.
-
-**Razón:** disminuir falsos positivos durante la adopción.
+**Decisión:** comenzar reglas administradas sensibles en `COUNT` y promoverlas a `BLOCK` después de analizar tráfico.  
+**Razón:** disminuir falsos positivos.
 
 ## ADR-04 — Multi-AZ
 
-**Decisión:** distribuir application tier y servicios de datos según capacidades Multi-AZ.
-
+**Decisión:** distribuir application tier y servicios de datos según capacidades Multi-AZ.  
 **Razón:** evitar que la pérdida de una única AZ detenga el servicio.
 
 ---
 
 # 🚨 Errores que evitaría
 
-### 1. CloudFront delante de un ALB público sin restringir el origen
-
-Puede permitir que usuarios eviten CloudFront y lleguen directamente al ALB.
-
-### 2. Activar WAF en BLOCK sin observar tráfico
-
-Puede bloquear usuarios reales.
-
-### 3. Base de datos pública “porque es más fácil conectarse”
-
-La comodidad administrativa no justifica aumentar la superficie de exposición.
-
-### 4. Una sola AZ
-
-No es una arquitectura altamente disponible.
-
-### 5. Security Groups excesivamente abiertos
-
-Las reglas deben representar relaciones entre componentes, no permitir Internet indiscriminadamente.
-
-### 6. Diseñar sin logs ni alarmas
-
-El día del incidente será demasiado tarde para descubrir que no teníamos visibilidad.
+1. **CloudFront delante de un ALB público sin restringir el origen.** Puede permitir bypass del edge.
+2. **Activar WAF en BLOCK sin observar tráfico.** Puede bloquear usuarios reales.
+3. **Base de datos pública por comodidad.** Aumenta superficie de exposición.
+4. **Una sola AZ.** No ofrece alta disponibilidad real.
+5. **Security Groups excesivamente abiertos.** Rompen el principio de mínimo privilegio.
+6. **Diseñar sin logs ni alarmas.** El incidente no es el momento para descubrir que no tenemos visibilidad.
 
 ---
 
@@ -519,9 +472,7 @@ El día del incidente será demasiado tarde para descubrir que no teníamos visi
 
 # 🛠️ Infrastructure as Code
 
-El diagrama es solo el comienzo.
-
-La implementación reproducible de este capítulo se construirá con Terraform alrededor de estos bloques:
+La implementación reproducible de este capítulo puede construirse con Terraform alrededor de estos bloques:
 
 ```text
 ACM
@@ -536,43 +487,7 @@ RDS
 CloudWatch
 ```
 
-El objetivo del código no será crear un “copy/paste mágico”, sino convertir las decisiones de arquitectura en infraestructura versionable y revisable.
-
----
-
-# 🧠 Lo que debemos llevarnos de este capítulo
-
-La lección principal no es memorizar una lista de servicios.
-
-Es entender el razonamiento:
-
-```text
-Necesito alcance global
-        ↓
-CloudFront
-
-Necesito filtrar HTTP(S)
-        ↓
-AWS WAF
-
-No quiero exponer mi origen
-        ↓
-VPC Origin + ALB interno
-
-No quiero depender de una AZ
-        ↓
-Multi-AZ
-
-Necesito entender qué ocurre
-        ↓
-Observabilidad
-
-Necesito controlar el gasto
-        ↓
-FinOps
-```
-
-Eso es arquitectura: **convertir requisitos y riesgos en decisiones técnicas justificables.**
+El objetivo del código no es crear un “copy/paste mágico”, sino convertir las decisiones de arquitectura en infraestructura versionable y revisable.
 
 ---
 
@@ -596,15 +511,11 @@ Private Application Tier
 RDS Multi-AZ
 ```
 
-En el próximo capítulo dejaremos el edge atrás y entraremos a la VPC.
-
 ## Próximo destino
 
 ### 🏗️ Capítulo 02 — Construyendo para Producción
 
 **VPC · Subnets · Multi-AZ · NAT · Load Balancing · Auto Scaling · RDS**
-
-La pregunta será:
 
 > **¿Cómo diseñamos una plataforma AWS que pueda perder componentes sin perder el servicio?**
 
@@ -612,16 +523,26 @@ La pregunta será:
 
 ## 📚 Referencias esenciales
 
-Para mantener la serie enfocada en arquitectura, dejamos solo documentación primaria para profundizar:
+Para mantener la serie enfocada en arquitectura, dejamos pocas referencias y todas apuntan a documentación primaria de AWS:
 
-- Amazon CloudFront — documentación oficial de AWS
-- AWS WAF — documentación oficial de AWS
-- CloudFront VPC Origins — documentación oficial de AWS
-- Elastic Load Balancing — documentación oficial de AWS
-- AWS Well-Architected Framework
+- [Amazon CloudFront — Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
+- [AWS WAF — Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html)
+- [CloudFront VPC Origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-vpc-origins.html)
+- [Elastic Load Balancing — Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
+- [Amazon Route 53 — Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+
+➡️ [Ver referencias ampliadas del capítulo](./REFERENCIAS.md)
 
 ---
 
 [⬅️ Volver a AWS Cloud Odyssey](../../README.md)
 
-**AWS Cloud Odyssey · Capítulo 01 — El Perímetro Global**
+---
+
+### ✍️ Autor
+
+**Juan Gutierrez**  
+*AWS Cloud Odyssey · Arquitecturas AWS de producción*  
+
+> Diseño y contenido técnico por Juan Gutierrez.
