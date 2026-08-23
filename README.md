@@ -45,4 +45,16 @@ Diseñaremos la entrada global de una aplicación AWS utilizando **Amazon Route 
 
 ---
 
+## 👤 Sobre el autor
+
+**Juan Gutierrez**  
+Solutions Architect enfocado en Cloud Architecture, Kubernetes, Security, FinOps y Cloud Modernization.
+
+Esta serie documenta decisiones de arquitectura, trade-offs, seguridad, resiliencia, costos e Infrastructure as Code desde una perspectiva práctica.
+
+🔗 [LinkedIn](https://www.linkedin.com/in/juan-gutierrez25)  
+💻 [GitHub](https://github.com/juan2521)
+
+---
+
 **Juan Gutierrez** · AWS Cloud Odyssey · Arquitectura · Seguridad · Resiliencia · Escalabilidad · FinOps · Infrastructure as Code
