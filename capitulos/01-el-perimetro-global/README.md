@@ -84,26 +84,6 @@ flowchart TB
     ALB -. métricas .-> CW
 ```
 
-### Flujo principal
-
-```text
-Usuario
-   ↓
-Amazon Route 53
-   ↓
-Amazon CloudFront
-   ↓
-AWS WAF
-   ↓
-CloudFront VPC Origin
-   ↓
-Internal Application Load Balancer
-   ↓
-Application Tier privado Multi-AZ
-   ↓
-Amazon RDS Multi-AZ
-```
-
 La idea central del diseño es que **CloudFront sea la puerta global y el ALB forme parte del origen privado**, en lugar de publicar innecesariamente ambos componentes.
 
 ---
