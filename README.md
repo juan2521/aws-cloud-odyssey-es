@@ -8,7 +8,7 @@ Aquí no quiero limitarme solamente a explicar qué hace cada servicio. El objet
 
 ## 🧠 Perspectiva desde la experiencia
 
-Esta serie nace de una idea sencilla: en proyectos reales, la arquitectura rara vez consiste en elegir el servicio “correcto” de una lista. Normalmente hay restricciones de red, seguridad, presupuesto, operación, equipos existentes y decisiones heredadas que obligan a evaluar **trade-offs**.
+Esta serie nace de una idea sencilla: en proyectos reales, la arquitectura rara vez consiste en elegir el servicio correcto de una lista. Normalmente hay restricciones de red, seguridad, presupuesto, operación, equipos existentes y decisiones heredadas que obligan a evaluar **trade-offs**.
 
 Por eso cada capítulo separará tres cosas:
 
