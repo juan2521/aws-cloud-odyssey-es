@@ -37,7 +37,7 @@ Queremos una plataforma que cumpla estas condiciones:
 ## 🗺️ Arquitectura objetivo
 
 <p align="center">
-  <img src="./arquitectura/arquitectura-aws.jpg" alt="AWS Cloud Odyssey - Capítulo 01 - El Perímetro Global - Arquitectura AWS" width="900">
+  <img src="./arquitectura/arquitectura-aws.svg" alt="AWS Cloud Odyssey - Capítulo 01 - El Perímetro Global - Arquitectura AWS" width="1200">
 </p>
 
 > **Arquitectura visual del capítulo.** Route 53 y CloudFront proporcionan la entrada global; AWS WAF protege la capa HTTP(S); CloudFront VPC Origin permite alcanzar un ALB interno; la aplicación se distribuye en múltiples AZ y Amazon RDS Multi-AZ protege la capa de datos.
@@ -518,17 +518,6 @@ RDS Multi-AZ
 **VPC · Subnets · Multi-AZ · NAT · Load Balancing · Auto Scaling · RDS**
 
 > **¿Cómo diseñamos una plataforma AWS que pueda perder componentes sin perder el servicio?**
-
----
-
-## 📚 Referencias esenciales
-
-- [Amazon CloudFront — Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
-- [AWS WAF — Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html)
-- [CloudFront VPC Origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-vpc-origins.html)
-- [Elastic Load Balancing — Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
-- [Amazon Route 53 — Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
-- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 
 ---
 
