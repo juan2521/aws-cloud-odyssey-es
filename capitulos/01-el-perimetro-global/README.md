@@ -14,7 +14,7 @@ Una aplicación puede funcionar perfectamente detrás de un Load Balancer públi
 
 En este primer capítulo de **AWS Cloud Odyssey** construiremos el perímetro de una aplicación web pensando como arquitectos: ¿dónde termina Internet?, ¿qué componente debe ser realmente público?, ¿dónde filtramos tráfico malicioso?, ¿cómo evitamos exponer el origen?, ¿cómo mantenemos alta disponibilidad y qué observamos cuando algo falla?
 
-> **Misión:** construir una entrada global segura para aplicaciones AWS, combinando escalabilidad y control del tráfico..
+> **Misión:** construir una entrada global segura para aplicaciones AWS, combinando escalabilidad y control del tráfico.
 
 ---
 
@@ -469,24 +469,39 @@ La pregunta correcta no es solo “¿cuánto cuesta CloudFront?”, sino:
 
 ---
 
-# 🛠️ Infrastructure as Code
+# 🛠️ Infrastructure as Code — Terraform
 
-La implementación reproducible de este capítulo puede construirse con Terraform alrededor de estos bloques:
+El capítulo ya incluye una implementación **desplegable con Terraform**, no solo pseudocódigo. El baseline crea la red, dos Availability Zones, NAT Gateway por AZ, ALB interno, Auto Scaling, Amazon RDS PostgreSQL Multi-AZ, CloudFront VPC Origin, AWS WAF y, de forma opcional, ACM + Route 53 para un dominio propio.
 
-```text
-ACM
-Route 53
-CloudFront
-AWS WAF
-CloudFront VPC Origin
-Internal ALB
-Security Groups
-Application Tier
-RDS
-CloudWatch
+### Despliegue rápido
+
+```bash
+cd terraform
+cp terraform.tfvars.example terraform.tfvars
+terraform init
+terraform fmt -check
+terraform validate
+terraform plan -out=tfplan
+terraform apply tfplan
 ```
 
-El objetivo del código no es crear un “copy/paste mágico”, sino convertir las decisiones de arquitectura en infraestructura versionable y revisable.
+Al terminar, Terraform entrega la URL pública:
+
+```bash
+terraform output cloudfront_url
+```
+
+La implementación usa **Amazon Linux 2023 + NGINX** como aplicación de prueba para que puedas validar el flujo completo:
+
+```text
+CloudFront → AWS WAF → VPC Origin → ALB interno → Auto Scaling → RDS Multi-AZ
+```
+
+El dominio propio es opcional. Si no configuras uno, puedes probar directamente con el dominio generado por CloudFront. Si ya administras una Hosted Zone en Route 53, el código también puede solicitar y validar automáticamente un certificado ACM en `us-east-1`.
+
+➡️ **[Ver código Terraform y guía completa de despliegue](./terraform/README.md)**
+
+> **Importante:** este laboratorio crea recursos con costo, incluidos dos NAT Gateways, ALB, EC2, RDS Multi-AZ, CloudFront y AWS WAF. Cuando termines la prueba, ejecuta `terraform destroy`.
 
 ---
 
