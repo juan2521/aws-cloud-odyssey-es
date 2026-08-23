@@ -8,7 +8,7 @@ Aquí no quiero limitarme solamente a explicar qué hace cada servicio. El objet
 
 ## 🧠 Perspectiva desde la experiencia
 
-Esta serie nace de una idea sencilla: en proyectos reales, la arquitectura rara vez consiste en elegir el servicio correcto de una lista. Normalmente hay restricciones de red, seguridad, presupuesto, operación, equipos existentes y decisiones heredadas que obligan a evaluar **trade-offs**.
+Esta serie nace de una idea sencilla: en proyectos reales, la arquitectura rara vez consiste en elegir el servicio correcto de una lista. Normalmente hay restricciones de red, seguridad, presupuesto, operación, equipos existentes y decisiones heredadas que obligan a **comparar alternativas y entender qué ganamos y qué sacrificamos con cada decisión**.
 
 Por eso cada capítulo separará tres cosas:
 
@@ -50,7 +50,7 @@ Diseñaremos la entrada global de una aplicación AWS utilizando **Amazon Route 
 **Juan Gutierrez**  
 Solutions Architect enfocado en Cloud Architecture, Kubernetes, Security, FinOps y Cloud Modernization.
 
-Esta serie documenta decisiones de arquitectura, trade-offs, seguridad, resiliencia, costos e Infrastructure as Code desde una perspectiva práctica.
+Esta serie documenta decisiones de arquitectura, alternativas, seguridad, resiliencia, costos e Infrastructure as Code desde una perspectiva práctica.
 
 🔗 [LinkedIn](https://www.linkedin.com/in/juan-gutierrez25)  
 💻 [GitHub](https://github.com/juan2521)
