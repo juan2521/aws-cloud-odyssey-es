@@ -455,7 +455,6 @@ La pregunta correcta no es solo “¿cuánto cuesta CloudFront?”, sino:
 - [ ] CloudFront configurado como entrada pública.
 - [ ] Web ACL asociada a CloudFront.
 - [ ] Managed Rules validadas antes de pasar a bloqueo.
-- [ ] Rate limiting ajustado al comportamiento real.
 - [ ] Origen privado mediante VPC Origin cuando sea compatible.
 - [ ] ALB desplegado en múltiples AZ.
 - [ ] Targets distribuidos entre AZ.
