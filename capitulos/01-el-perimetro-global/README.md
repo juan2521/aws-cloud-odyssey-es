@@ -14,9 +14,7 @@ Una aplicación puede funcionar perfectamente detrás de un Load Balancer públi
 
 En este primer capítulo de **AWS Cloud Odyssey** construiremos el perímetro de una aplicación web pensando como arquitectos: ¿dónde termina Internet?, ¿qué componente debe ser realmente público?, ¿dónde filtramos tráfico malicioso?, ¿cómo evitamos exponer el origen?, ¿cómo mantenemos alta disponibilidad y qué observamos cuando algo falla?
 
-La misión es sencilla de describir y difícil de ejecutar bien:
-
-> **Publicar una aplicación globalmente sin convertir su infraestructura interna en una superficie pública innecesaria.**
+> **Misión:** publicar una aplicación globalmente sin convertir su infraestructura interna en una superficie pública innecesaria.
 
 ---
 
@@ -37,6 +35,14 @@ Queremos una plataforma que cumpla estas condiciones:
 ---
 
 ## 🗺️ Arquitectura objetivo
+
+<p align="center">
+  <img src="./arquitectura/arquitectura-aws.jpg" alt="AWS Cloud Odyssey - Capítulo 01 - El Perímetro Global - Arquitectura AWS" width="900">
+</p>
+
+> **Arquitectura visual del capítulo.** Route 53 y CloudFront proporcionan la entrada global; AWS WAF protege la capa HTTP(S); CloudFront VPC Origin permite alcanzar un ALB interno; la aplicación se distribuye en múltiples AZ y Amazon RDS Multi-AZ protege la capa de datos.
+
+### Diagrama técnico
 
 ```mermaid
 flowchart TB
@@ -141,8 +147,6 @@ Reglas específicas de la aplicación
 
 ## Estrategia de despliegue
 
-Una estrategia segura es:
-
 ```text
 1. Asociar Web ACL
 2. Managed Rules inicialmente en COUNT
@@ -158,15 +162,13 @@ El WAF no debe convertirse en una fuente de indisponibilidad creada por nosotros
 
 # 🔒 Decisión 03 — El origen no necesita ser público
 
-En una arquitectura tradicional podríamos tener:
+Una arquitectura tradicional puede exponer directamente el ALB:
 
 ```text
 Internet → ALB público → Aplicación
 ```
 
-Funciona, pero significa que el ALB es directamente alcanzable desde Internet.
-
-Nuestra arquitectura busca:
+Nuestro objetivo es:
 
 ```text
 Internet
@@ -254,7 +256,7 @@ Application SG
 Database SG
 ```
 
-No necesitamos reglas como:
+Evitaríamos reglas como:
 
 ```text
 0.0.0.0/0 → Database:5432
@@ -280,8 +282,6 @@ https://app.example.com
 Para CloudFront, el certificado ACM utilizado por la distribución se administra en **us-east-1**.
 
 También podemos definir TLS entre CloudFront y el origen cuando el diseño lo requiera.
-
-Patrón recomendado:
 
 ```text
 HTTP → HTTPS
@@ -523,16 +523,12 @@ RDS Multi-AZ
 
 ## 📚 Referencias esenciales
 
-Para mantener la serie enfocada en arquitectura, dejamos pocas referencias y todas apuntan a documentación primaria de AWS:
-
 - [Amazon CloudFront — Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
 - [AWS WAF — Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html)
 - [CloudFront VPC Origins](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-vpc-origins.html)
 - [Elastic Load Balancing — Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
 - [Amazon Route 53 — Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
-
-➡️ [Ver referencias ampliadas del capítulo](./REFERENCIAS.md)
 
 ---
 
@@ -545,4 +541,4 @@ Para mantener la serie enfocada en arquitectura, dejamos pocas referencias y tod
 **Juan Gutierrez**  
 *AWS Cloud Odyssey · Arquitecturas AWS de producción*  
 
-> Diseño y contenido técnico por Juan Gutierrez.
+> Diseño y contenido técnico por Juan Gutierrez · © 2026
