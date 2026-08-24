@@ -14,7 +14,7 @@ Una aplicación puede funcionar perfectamente detrás de un Load Balancer públi
 
 En este primer capítulo de **AWS Cloud Odyssey** construiremos el perímetro de una aplicación web pensando como arquitectos: ¿dónde termina Internet?, ¿qué componente debe ser realmente público?, ¿dónde filtramos tráfico malicioso?, ¿cómo evitamos exponer el origen?, ¿cómo mantenemos alta disponibilidad y qué observamos cuando algo falla?
 
-> **Misión:** construir una entrada global segura para aplicaciones AWS, combinando escalabilidad y control del tráfico.
+> **Misión:** construir una entrada global segura para aplicaciones.
 
 ---
 
