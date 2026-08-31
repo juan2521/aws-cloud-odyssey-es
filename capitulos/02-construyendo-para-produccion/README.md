@@ -31,7 +31,6 @@ AWS Well-Architected recomienda operar workloads de producción en al menos dos 
 
 ## 🗺️ Arquitectura
 
-<!-- IMAGE READY FOR MANUAL UPLOAD: ./arquitectura/architecture_exact_lossless.png -->
 <p align="center">
   <img src="./arquitectura/architecture_exact_lossless.png" alt="AWS Cloud Odyssey - Capítulo 02 - Arquitectura Multi-AZ de producción" width="1200">
 </p>
