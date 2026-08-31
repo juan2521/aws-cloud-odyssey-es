@@ -66,7 +66,7 @@ Distribuyo el application tier en dos AZ desde el inicio. El ALB realiza health 
 
 **Juicio práctico:** Multi-AZ no corrige una aplicación stateful mal diseñada. Sesiones locales, archivos en disco de instancia o jobs singleton pueden seguir rompiendo el failover.
 
-# 🌐 Decisión 02 — Subnets por función, no por decoración
+# 🌐 Decisión 02 — Subnets por función
 
 Por AZ separo:
 
