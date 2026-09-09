@@ -33,7 +33,7 @@ AWS recomienda desplegar EKS en múltiples AZ y usar controles de topología par
 ## 🗺️ Arquitectura
 
 <p align="center">
-  <img src="./article-03-kubernetes-at-scale-architecture.png.png" alt="AWS Cloud Odyssey - Capítulo 03 - Kubernetes a Escala sobre Amazon EKS - Diseñada por Juan Gutiérrez" width="1200">
+  <img src="./article-03-kubernetes-at-scale-architecture.png.png?v=20260909-0451" alt="AWS Cloud Odyssey - Capítulo 03 - Kubernetes a Escala sobre Amazon EKS - Diseñada por Juan Gutierrez" width="1200">
 </p>
 
 > **Arquitectura visual del capítulo.** Un ALB administrado por AWS Load Balancer Controller publica los servicios. El control plane administrado de EKS se conecta a workers privados distribuidos en tres AZ. Un Managed Node Group pequeño sostiene componentes críticos de plataforma y Karpenter incorpora capacidad dinámica para workloads. EKS Pod Identity entrega credenciales temporales por aplicación; CloudWatch y CloudTrail cubren observabilidad y auditoría.
