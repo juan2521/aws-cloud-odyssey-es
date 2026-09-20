@@ -18,7 +18,7 @@ Cada capítulo separa el patrón de referencia, mi decisión como arquitecto y l
 | **02** | 🏗️ [Construyendo para Producción — Arquitectura Multi-AZ](./capitulos/02-construyendo-para-produccion/README.md) | 🚀 Publicado |
 | **03** | ☸️ [Kubernetes a Escala — Amazon EKS](./capitulos/03-kubernetes-a-escala/README.md) | 🚀 Publicado |
 | **04** | 🛡️ [Defensa en Profundidad — Seguridad AWS](./capitulos/04-defensa-en-profundidad/README.md) | 🚀 Publicado |
-| **05** | ⚡ El Mundo Serverless | Próximamente |
+| **05** | ⚡ [El Mundo Serverless — Arquitectura Event-Driven](./capitulos/05-el-mundo-serverless/README.md) | 🚀 Publicado |
 | **06** | 🤖 La Era GenAI — Amazon Bedrock | Próximamente |
 | **07** | 📊 El Camino de los Datos | Próximamente |
 | **08** | 🔭 Observando la Nube | Próximamente |
