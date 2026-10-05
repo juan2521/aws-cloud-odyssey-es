@@ -32,10 +32,8 @@ Serverless elimina servidores que administrar, no decisiones que tomar. El probl
 ## 🗺️ Arquitectura
 
 <p align="center">
-  <img src="./arquitectura/chapter-05-serverless-event-driven-architecture.png" alt="AWS Cloud Odyssey - Capítulo 05 - El Mundo Serverless - Diseñada por Juan Gutierrez" width="1200">
+  <img src="./cb87c680-3386-44c8-bb55-eff95dc98c67.png" alt="AWS Cloud Odyssey - Capítulo 05 - El Mundo Serverless - Diseñada por Juan Gutierrez" width="1200">
 </p>
-
-> **Imagen pendiente de carga manual:** `capitulos/05-el-mundo-serverless/arquitectura/chapter-05-serverless-event-driven-architecture.png`
 
 La arquitectura separa dos caminos. El **camino síncrono** usa Amazon API Gateway, Lambda y DynamoDB para aceptar y persistir la intención rápidamente. El **camino asíncrono** publica eventos de dominio en EventBridge, enruta trabajo con SQS y ejecuta consumidores Lambda independientes. Step Functions aparece solo cuando existe un workflow que realmente necesita estado, compensación o decisiones visibles.
 
