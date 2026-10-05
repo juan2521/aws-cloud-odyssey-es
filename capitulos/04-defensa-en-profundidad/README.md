@@ -32,10 +32,8 @@ La seguridad real no consiste en poner un WAF delante de una aplicación y decla
 ## 🗺️ Arquitectura
 
 <p align="center">
-  <img src="./arquitectura/chapter-04-defense-in-depth-architecture.png" alt="AWS Cloud Odyssey - Capítulo 04 - Defensa en Profundidad - Diseñada por Juan Gutierrez" width="1200">
+  <img src="./Arquitectura%20AWS%20de%20Defensa%20en%20Profundidad.png" alt="AWS Cloud Odyssey - Capítulo 04 - Defensa en Profundidad - Diseñada por Juan Gutierrez" width="1200">
 </p>
-
-> **Imagen pendiente de carga manual:** `capitulos/04-defensa-en-profundidad/arquitectura/chapter-04-defense-in-depth-architecture.png`
 
 La referencia visual separa cuentas de Workload, Security Tooling, Log Archive y Network/Shared Services. El tráfico web atraviesa Route 53, CloudFront, WAF y el balanceador; la inspección de red se centraliza solo cuando el modelo de riesgo lo justifica. GuardDuty, Inspector y Security Hub concentran detección, mientras CloudTrail, Config, VPC Flow Logs y logs de aplicación terminan en una cuenta de archivo independiente.
 
