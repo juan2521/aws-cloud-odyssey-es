@@ -31,10 +31,8 @@ Una demo GenAI puede impresionar con diez documentos y un prompt. Producción em
 ## 🗺️ Arquitectura
 
 <p align="center">
-  <img src="./arquitectura/chapter-06-genai-bedrock-production-architecture.png" alt="AWS Cloud Odyssey - Capítulo 06 - La Era GenAI - Diseñada por Juan Gutierrez" width="1200">
+  <img src="./0fa8c272-4390-43ac-b60d-dae379288e60.png" alt="AWS Cloud Odyssey - Capítulo 06 - La Era GenAI - Diseñada por Juan Gutierrez" width="1200">
 </p>
-
-> **Imagen pendiente de carga manual:** `capitulos/06-la-era-genai/arquitectura/chapter-06-genai-bedrock-production-architecture.png`
 
 El patrón separa **plano de aplicación**, **plano de conocimiento** y **plano de control**. API Gateway/Lambda autentican, autorizan y construyen la solicitud. Bedrock Guardrails inspecciona entrada/salida. Knowledge Bases recupera contexto desde documentos gobernados; el modelo genera la respuesta usando ese contexto. CloudWatch/CloudTrail y un pipeline de evaluación permiten observar calidad, seguridad, latencia y costo sin registrar indiscriminadamente prompts sensibles.
 
