@@ -26,9 +26,7 @@ Un data lake no es una colección de buckets. He visto que el riesgo real no es 
 
 ## 🗺️ Arquitectura
 
-![Arquitectura del camino de los datos — Juan Gutierrez](./arquitectura/chapter-07-data-path-architecture.png)
-
-**Imagen pendiente de carga manual:** `capitulos/07-el-camino-de-los-datos/arquitectura/chapter-07-data-path-architecture.png`.
+![Capítulo 07 — El Camino de los Datos — Arquitectura AWS por Juan Gutierrez](./Arquitectura%20moderna%20del%20lago%20de%20datos%20en%20AWS.png)
 
 **Flujo:** productores batch → S3 raw; productores de eventos → Kinesis Data Streams → consumidor de aterrizaje en S3 raw; AWS Glue valida, transforma y envía registros inválidos a S3 quarantine; S3 curated en Parquet → Glue Data Catalog + Lake Formation → Athena y, cuando sea necesario, Redshift. CloudWatch y CloudTrail permiten observar operación y cambios. **El esquema es una referencia, no significa que todos los componentes deban desplegarse desde el primer día.**
 
