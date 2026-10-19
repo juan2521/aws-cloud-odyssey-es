@@ -21,7 +21,7 @@ Cada capítulo separa el patrón de referencia, mi decisión como arquitecto y l
 | **05** | ⚡ [El Mundo Serverless — Arquitectura Event-Driven](./capitulos/05-el-mundo-serverless/README.md) | 🚀 Publicado |
 | **06** | 🤖 [La Era GenAI — Amazon Bedrock](./capitulos/06-la-era-genai/README.md) | 🚀 Publicado |
 | **07** | 📊 [El Camino de los Datos — Analítica gobernada](./capitulos/07-el-camino-de-los-datos/README.md) | 🚀 Publicado |
-| **08** | 🔭 Observando la Nube | Próximamente |
+| **08** | 🔭 [Observando la Nube](capitulos/08-observando-la-nube/README.md) | Publicado |
 | **09** | 💰 Arquitectura con FinOps | Próximamente |
 | **10** | 🏢 La Organización Cloud | Próximamente |
 | **11** | 🌎 Sobreviviendo a una Región | Próximamente |
