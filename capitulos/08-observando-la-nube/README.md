@@ -14,14 +14,6 @@ Una plataforma con ALB, Amazon EKS/EC2, Lambda y Amazon RDS necesita responder: 
 
 ![Arquitectura de observabilidad en AWS](./49737de8-3541-4809-a9b2-a5e7f2c53a63.png)
 
-*Diagrama conceptual. El PNG se incorpora al repositorio por separado; no considerar el enlace como evidencia de que el archivo exista.*
-
-```text
-Usuarios → ALB → EKS/EC2 → RDS
-                  ↘ OpenTelemetry / instrumentación → métricas, logs, trazas
-Lambda / API Gateway → CloudWatch Logs y métricas / AWS X-Ray
-CloudWatch dashboards y alarmas → SNS → on-call / runbooks
-```
 
 **Flujo de señales:** CloudWatch recibe métricas de infraestructura y aplicación; CloudWatch Logs centraliza eventos estructurados; X-Ray u OpenTelemetry permiten seguir solicitudes entre servicios. Alarmas de CloudWatch notifican a SNS y pueden activar respuesta automatizada, con aprobación cuando exista riesgo.
 
