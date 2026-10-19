@@ -12,7 +12,7 @@ Una plataforma con ALB, Amazon EKS/EC2, Lambda y Amazon RDS necesita responder: 
 
 ## Arquitectura
 
-![Arquitectura de observabilidad en AWS](./Arquitectura%20de%20observabilidad%20AWS.png)
+![Arquitectura de observabilidad en AWS](./arquitectura-observabilidad.svg)
 
 *Diagrama conceptual. El PNG se incorpora al repositorio por separado; no considerar el enlace como evidencia de que el archivo exista.*
 
