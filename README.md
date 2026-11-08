@@ -24,7 +24,7 @@ Cada capítulo separa el patrón de referencia, mi decisión como arquitecto y l
 | **08** | 🔭 [Observando la Nube](capitulos/08-observando-la-nube/README.md) | 🚀 Publicado |
 | **09** | 💰 [Arquitectura con FinOps](./capitulos/09-arquitectura-con-finops/README.md) | 🚀 Publicado |
 | **10** | 🏢 [La Organización Cloud](./capitulos/10-la-organizacion-cloud/README.md) | 🚀 Publicado |
-| **11** | 🌎 Sobreviviendo a una Región | Próximamente |
+| **11** | 🌎 [Sobreviviendo a una Región](./capitulos/11-sobreviviendo-a-una-region/README.md) | 🚀 Publicado |
 | **12** | 🏆 La Arquitectura Final | Próximamente |
 
 ## 👤 Sobre el autor
